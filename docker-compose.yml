@@ -59,6 +59,7 @@ services:
 
 ### Workspace Utilities ##################################
     workspace:
+      restart: always
       build:
         context: ./workspace
         args:
@@ -201,6 +202,10 @@ services:
         - backend
       links:
         - docker-in-docker
+        - mysql
+      networks:
+        - frontend
+        - backend
 
 ### PHP-FPM ##############################################
     php-fpm:
@@ -312,6 +317,7 @@ services:
 
 ### PHP Worker ############################################
     php-worker:
+      restart: always
       build:
         context: ./php-worker
         args:
@@ -359,6 +365,10 @@ services:
         - "dockerhost:${DOCKER_HOST_IP}"
       networks:
         - backend
+      links:
+        - docker-in-docker
+        - mysql
+
 ### Laravel Horizon ############################################
     laravel-horizon:
       build:
@@ -954,8 +964,8 @@ services:
         - MYSQL_PASSWORD=${PMA_PASSWORD}
         - MYSQL_ROOT_PASSWORD=${PMA_ROOT_PASSWORD}
         - PMA_HOST=${PMA_HOST}
-        - UPLOAD_LIMIT=${UPLOAD_LIMIT}
-        - MEMORY_LIMIT=${MEMORY_LIMIT}
+        - PMA_UPLOAD_LIMIT=${PMA_UPLOAD_LIMIT}
+        - PMA_MEMORY_LIMIT=${PMA_MEMORY_LIMIT}
       ports:
         - "${PMA_PORT}:80"
       depends_on:
