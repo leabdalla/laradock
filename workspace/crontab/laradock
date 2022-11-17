@@ -1,1 +1,5 @@
 * * * * * laradock php /var/www/parkaz-php/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock php /var/www/conseq-php/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock php /var/www/eparts-php/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock php /var/www/privatu-php/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock php /var/www/rdphone/artisan schedule:run >> /dev/null 2>&1
